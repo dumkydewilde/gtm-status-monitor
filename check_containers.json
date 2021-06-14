@@ -1,0 +1,10 @@
+[
+    { 
+        "accountId": "12345678",
+        "containerId": "12345678"
+    },
+    {
+        "name": "My First Container",
+        "url": "https://www.googletagmanager.com/gtm.js?id=GTM-ABCDEFG"
+    }
+]

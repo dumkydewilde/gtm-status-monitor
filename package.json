@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@google-cloud/storage": "^5.8.5",
+    "axios": "^0.21.1",
+    "googleapis": "^75.0.0"
+  }
+}
