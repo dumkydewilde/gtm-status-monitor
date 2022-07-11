@@ -7,6 +7,6 @@ Since GTM does not allow you to monitor container publications other than throug
     * `container_versions.json`: storage for version info
     * `check_containers.json`: an array of containers to check. You can either add the container ID and account ID for which you have given a service account access (e.g. the default App Engine service account) or use a name of your choice and a URL pointing to the GTM script that you like to keep tabs on. The first will give you more details like version name and description.
 * Add the code from `status-monitor.js` to a (GCP) Cloud Function and let it trigger by the pub/sub topic `gtm-status-monitor` (or whatever you picked above). 
-* Set up an environment variable called `SLACK_ENDPOINT`. Add the webhook URL that you can [create in your custom Slack app](https://api.slack.com/messaging/webhooks).
+* Set up an environment variable called `SLACK_ENDPOINT`. Add the webhook URL that you can [create in your custom Slack app](https://api.slack.com/messaging/webhooks). Multiple webhook URLs can be fired by inserting a `,` between each URL.
 * If you used a different bucket name for your cloud storage, add it as an environment variable as well, named `STORAGE_BUCKET`.
 * Deploy the function and you're good to go! The first trigger will show you a notification of the versions going from 0 to the current live version.

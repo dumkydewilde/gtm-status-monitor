@@ -106,13 +106,25 @@ const publishNotification = async(data) => {
         messageText = `*Version change detected from version ${data.lastKnownVersion} to ${data.newVersion} for container ${data.containerId} (${data.name})*`;
     }
 
-    await axios.post(ENDPOINT, {
-            "type" : "mrkdwn",
-            "verbatim" : true,
-            "text" : messageText
-        }).then(res => {
-            // console.log(JSON.stringify(res.data));
-        }).catch(console.error)
+    const endPoints = ENDPOINT.split(",");
+    await Promise.All(
+      await endPoints.map(
+        async (endPoint) =>
+          await axios
+            .post(endPoint, {
+              type: "mrkdwn",
+              verbatim: true,
+              text: messageText,
+            })
+            .then((res) => {
+              // console.log(JSON.stringify(res.data));
+            })
+            .catch(console.error)
+      )
+    );
+
+
+    
     return
 }
 
