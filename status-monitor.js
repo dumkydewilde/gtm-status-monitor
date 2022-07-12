@@ -107,24 +107,22 @@ const publishNotification = async(data) => {
     }
 
     const endPoints = ENDPOINT.split(",");
-    await Promise.All(
-      await endPoints.map(
-        async (endPoint) =>
-          await axios
-            .post(endPoint, {
-              type: "mrkdwn",
-              verbatim: true,
-              text: messageText,
-            })
-            .then((res) => {
-              // console.log(JSON.stringify(res.data));
-            })
-            .catch(console.error)
+    await Promise.all(
+      endPoints.map(
+          async (endPoint) =>
+              await axios
+                  .post(endPoint, {
+                      type: "mrkdwn",
+                      verbatim: true,
+                      text: messageText,
+                  })
+                  .then((res) => {
+                      // console.log(JSON.stringify(res.data));
+                  })
+                  .catch(console.error)
       )
     );
 
-
-    
     return
 }
 
