@@ -5,7 +5,6 @@ const fs = require('fs');
 
 const storage = new Storage();
 
-
 // Your slack webhook endpoint ("Incoming webhooks" when you create your own Slack App)
 const ENDPOINT = process.env.SLACK_ENDPOINT;
 
@@ -14,7 +13,6 @@ const STORAGE_FILE = "container_versions.json";
 
 // List of containers to check. Either use accountId + containerId or name + url
 const CHECK_CONTAINER_FILE = "check_containers.json";
-
 
 /**
  * Get container version when we have access through a service account 
@@ -107,24 +105,22 @@ const publishNotification = async(data) => {
     }
 
     const endPoints = ENDPOINT.split(",");
-    await Promise.All(
-      await endPoints.map(
-        async (endPoint) =>
-          await axios
-            .post(endPoint, {
-              type: "mrkdwn",
-              verbatim: true,
-              text: messageText,
-            })
-            .then((res) => {
-              // console.log(JSON.stringify(res.data));
-            })
-            .catch(console.error)
+    await Promise.all(
+      endPoints.map(
+          async (endPoint) =>
+              await axios
+                  .post(endPoint, {
+                      type: "mrkdwn",
+                      verbatim: true,
+                      text: messageText,
+                  })
+                  .then((res) => {
+                      // console.log(JSON.stringify(res.data));
+                  })
+                  .catch(console.error)
       )
     );
 
-
-    
     return
 }
 
@@ -144,7 +140,6 @@ exports.checkStatus = async(event, context) => {
         version: 'v2',
         auth: authClient
     });
-
 
     // Check all containers present
     await Promise.all(checkContainers.map(async(c) => {
@@ -185,7 +180,7 @@ exports.checkStatus = async(event, context) => {
         }
         return
     })).then(() => {
-        console.log('Check succesful')
+        console.log('Check successful')
     }).catch((err) => {
         console.error(err);
     })
